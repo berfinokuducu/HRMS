@@ -10,21 +10,32 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Data
 @Entity
-@Table(name="job_positions")
+@Table(name="activation_codes")
+@NoArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor 
-public class JobPosition {
+public class ActivationCode {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="position_name")
-	private String positionName;
+	@Column(name="user_id")
+	private int userId;
 	
+	@Column(name="code")
+	private String code;
 	
+	@Column(name="is_confirmed")
+	private boolean isConfirmed;
 	
-
+	public ActivationCode(int userId,String code,boolean isConfirmed)
+	{
+		super();
+		this.userId=userId;
+		this.code=code;
+		this.isConfirmed=isConfirmed;
+	}
 }
