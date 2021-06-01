@@ -1,6 +1,4 @@
 package kodlamaio.hrms.business.concretes;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,13 +40,9 @@ public class JobPositionManager implements JobPositionService{
 	}
 	private boolean checkIfJobPositionExists(String positionName)
 	{
-		List<JobPosition> jobPositions=new ArrayList<JobPosition>();
-		jobPositions=getAll().getData();
-		for(JobPosition jobPosition : jobPositions)
+		if(jobPositionDao.getByPositionName(positionName)!=null)
 		{
-			if(jobPosition.getPositionName().equals(positionName)) {
-				return false;
-			}
+			return false;
 		}
 		return true;
 	}

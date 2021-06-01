@@ -1,7 +1,6 @@
 package kodlamaio.hrms.business.concretes;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +9,7 @@ import kodlamaio.hrms.business.abstracts.ActivationCodeService;
 import kodlamaio.hrms.business.abstracts.AuthService;
 import kodlamaio.hrms.business.abstracts.EmployerService;
 import kodlamaio.hrms.business.abstracts.JobSeekerService;
+import kodlamaio.hrms.business.abstracts.UserService;
 import kodlamaio.hrms.core.utilities.adapters.UserCheckService;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
@@ -26,17 +26,19 @@ public class AuthManager implements AuthService{
 	private ActivationCodeService activationCodeService;
 	private VerificationService verificationService;
 	private UserCheckService userCheckService; 
+	private UserService userService;
 	
 	
 	@Autowired
 	public AuthManager(JobSeekerService jobSeekerService, EmployerService employerService,
-			ActivationCodeService activationCodeService, VerificationService verificationService,UserCheckService userCheckService) {
+			ActivationCodeService activationCodeService, VerificationService verificationService,UserCheckService userCheckService,UserService userService) {
 		super();
 		this.jobSeekerService = jobSeekerService;
 		this.employerService = employerService;
 		this.activationCodeService = activationCodeService;
 		this.verificationService = verificationService;
 		this.userCheckService=userCheckService;
+		this.userService=userService;
 	}
 
 	
@@ -51,8 +53,12 @@ public class AuthManager implements AuthService{
 		{
 			return new ErrorResult("Girdiğiniz parolalar eşleşmiyor.");
 		}
-		if(!checkIfEmailOrNationalIdExistsForJobSeeker(jobSeeker.getEmail(),jobSeeker.getNationalId())) {
-			return new ErrorResult("Girdiğiniz eposta veya TCNo sistemde mevcut.");
+		if(!checkIfEmailExists(jobSeeker.getEmail()))
+		{
+			return new ErrorResult("Girdiğiniz eposta sistemde mevcut.");
+		}
+		if(!checkIfNationalIdExistsForJobSeeker(jobSeeker.getNationalId())) {
+			return new ErrorResult("Girdiğiniz TCNo sistemde mevcut.");
 		}
 		if(!checkIfRealPerson(jobSeeker))
 		{
@@ -75,7 +81,7 @@ public class AuthManager implements AuthService{
 		{
 			return new ErrorResult("Girdiğiniz parolalar eşleşmiyor.");
 		}
-		if(!checkIfEmailExistsForEmployer(employer.getEmail()))
+		if(!checkIfEmailExists(employer.getEmail()))
 		{
 			return new ErrorResult("Girdiğiniz eposta sistemde mevcut.");
 		}
@@ -109,28 +115,18 @@ public class AuthManager implements AuthService{
 		}
 		return false;
 	}
-	private boolean checkIfEmailExistsForEmployer(String email)
+	private boolean checkIfEmailExists(String email)
 	{
-		List<Employer> employers=new ArrayList<Employer>();
-		employers=employerService.getAll().getData();
-		for(Employer employer : employers)
-		{
-			if(employer.getEmail().equals(email)) {
-				return false;
-			}
+		if(userService.getUserByEmail(email).getData()!=null) {
+			return false;
 		}
 		return true;
 	}
 	
-	private boolean checkIfEmailOrNationalIdExistsForJobSeeker(String email,String tc)
+	private boolean checkIfNationalIdExistsForJobSeeker(String tc)
 	{
-		List<JobSeeker> jobSeekers=new ArrayList<JobSeeker>();
-		jobSeekers=jobSeekerService.getAll().getData();
-		for(JobSeeker jobSeeker : jobSeekers)
-		{
-			if(jobSeeker.getEmail().equals(email) || jobSeeker.getNationalId().equals(tc)) {
-				return false;
-			}
+		if(jobSeekerService.getJobSeekerByNationalId(tc).getData()!=null) {
+			return false;
 		}
 		return true;
 	}

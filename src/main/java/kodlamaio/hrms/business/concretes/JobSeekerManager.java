@@ -34,4 +34,10 @@ public class JobSeekerManager implements JobSeekerService {
 		return new SuccessDataResult<List<JobSeeker>>(this.jobSeekerDao.findAll(),"İş arayanlar listelendi");
 	}
 
+	@Override
+	public DataResult<JobSeeker> getJobSeekerByNationalId(String nationalId) {
+		
+		return new SuccessDataResult<JobSeeker>(this.jobSeekerDao.getByNationalId(nationalId));
+	}
+
 }
