@@ -27,14 +27,14 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	@Override
 	public Result add(JobAdvertisement jobAdvertisement) {
 		if(!checkIfNullInfo(jobAdvertisement)) {
-			return new ErrorResult("Bazı boş alanlar var.");
+			return new ErrorResult("Açık Pozisyon adedi 0'dan büyük olmalıdır.");
 		}
 		this.jobAdvertisementDao.save(jobAdvertisement);
 		return new SuccessResult("iş İlanı Eklendi");
 	}
 	
 	private boolean checkIfNullInfo(JobAdvertisement jobAdvertisement) {
-		if(jobAdvertisement.getJobPosition()!=null && jobAdvertisement.getDescription()!=null && jobAdvertisement.getCity()!=null&& jobAdvertisement.getOpenPositionCount()!=0) {
+		if(jobAdvertisement.getOpenPositionCount()!=0) {
 			return true;
 		}
 		return false;

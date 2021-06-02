@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,13 +28,18 @@ public class JobAdvertisement {
 	@Column(name="id")
 	private int id;
 	
+	
+	@NotNull
 	@ManyToOne()
 	@JoinColumn(name="job_position_id")
 	private JobPosition jobPosition;
 	
+	@NotBlank
+	@NotNull
 	@Column(name="description")
 	private String description;
 	
+	@NotNull
 	@ManyToOne()
 	@JoinColumn(name="city_id")
 	private City city;
@@ -43,6 +50,8 @@ public class JobAdvertisement {
 	@Column(name="salary_max")
 	private double salaryMax;
 	
+	
+	@NotNull
 	@Column(name="open_position_count")
 	private int openPositionCount;
 	

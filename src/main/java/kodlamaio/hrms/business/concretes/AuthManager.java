@@ -46,8 +46,8 @@ public class AuthManager implements AuthService{
 
 	@Override
 	public Result registerJobSeeker(JobSeeker jobSeeker, String confirmPassword) {
-		if(!checkIfNullInfoForJobSeeker(jobSeeker, confirmPassword)) {
-			return new ErrorResult("Tüm alanlar zorunludur.");
+		if(!checkIfNullConfirmPassword(confirmPassword)) {
+			return new ErrorResult("Parola Tekrarı alanı zorunludur.");
 		}
 		if(!checkIfEqualPasswordAndConfirmPassword(jobSeeker.getPassword(),confirmPassword))
 		{
@@ -73,9 +73,9 @@ public class AuthManager implements AuthService{
 
 	@Override
 	public Result registerEmployer(Employer employer, String confirmPassword) {
-		if(!checkIfNullInfoForEmployer(employer, confirmPassword))
+		if(!checkIfNullConfirmPassword(confirmPassword))
 		{
-			return new ErrorResult("Tüm alanlar zorunludur.");
+			return new ErrorResult("Parola Tekrarı alanı zorunludur.");
 		}
 		if(!checkIfEqualPasswordAndConfirmPassword(employer.getPassword(),confirmPassword))
 		{
@@ -91,21 +91,15 @@ public class AuthManager implements AuthService{
 		return new SuccessResult("İş Veren Başarıyla Kaydedildi.");
 	}
 	
-	private boolean checkIfNullInfoForEmployer(Employer employer,String confirmPassword) {
-		if(employer.getEmail()!=null && employer.getCompanyName()!=null && confirmPassword!=null && employer.getPassword()!=null && employer.getWebAddress()!=null && employer.getPhoneNumber()!=null)
+	private boolean checkIfNullConfirmPassword(String confirmPassword) {
+		if(confirmPassword!=null )
 		{
 			return true;
 		}
 		return false;
 	}
 	
-	private boolean checkIfNullInfoForJobSeeker(JobSeeker jobSeeker,String confirmPassword) {
-		if(jobSeeker.getEmail()!=null && jobSeeker.getFirstName()!=null && confirmPassword!=null && jobSeeker.getPassword()!=null && jobSeeker.getLastName()!=null && jobSeeker.getNationalId()!=null && jobSeeker.getBirthDate()!=null)
-		{
-			return true;
-		}
-		return false;
-	}
+	
 	
 	private boolean checkIfEqualPasswordAndConfirmPassword(String password,String confirmPassword)
 	{
