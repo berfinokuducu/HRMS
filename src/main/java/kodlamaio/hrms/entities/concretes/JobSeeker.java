@@ -1,12 +1,16 @@
 package kodlamaio.hrms.entities.concretes;
 import java.time.LocalDate;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import kodlamaio.hrms.core.entities.User;
 import lombok.AllArgsConstructor;
@@ -41,5 +45,9 @@ public class JobSeeker extends User{
 	@NotNull
 	@Column(name="birth_date")
 	private LocalDate birthDate;
+	
+	@OneToOne(mappedBy="jobSeeker")
+	@JsonIgnore
+	private CurriculumVitae curriculumVitae;
 
 }
