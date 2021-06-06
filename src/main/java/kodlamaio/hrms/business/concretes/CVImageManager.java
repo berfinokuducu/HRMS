@@ -14,6 +14,7 @@ import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.CVImageDao;
 import kodlamaio.hrms.entities.concretes.CVImage;
+import kodlamaio.hrms.entities.dtos.CVImageDetailDto;
 
 @Service
 public class CVImageManager implements CVImageService{
@@ -39,6 +40,11 @@ public class CVImageManager implements CVImageService{
 	@Override
 	public DataResult<List<CVImage>> getAll() {
 		return new SuccessDataResult<List<CVImage>>(this.cvImageDao.findAll(),"Resimler listelendi");
+	}
+
+	@Override
+	public DataResult<CVImageDetailDto> getById(int id) {
+		return new SuccessDataResult<CVImageDetailDto>(this.cvImageDao.getByCurriculumVitae_Id(id));
 	}
 
 }

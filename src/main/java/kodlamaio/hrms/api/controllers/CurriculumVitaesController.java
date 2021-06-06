@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import kodlamaio.hrms.business.abstracts.ForeignLanguageService;
 import kodlamaio.hrms.business.abstracts.JobExperienceService;
 import kodlamaio.hrms.business.abstracts.SchoolInfoService;
 import kodlamaio.hrms.core.utilities.helpers.CloudinaryService;
+import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.concretes.Ability;
@@ -31,6 +33,7 @@ import kodlamaio.hrms.entities.concretes.CurriculumVitae;
 import kodlamaio.hrms.entities.concretes.ForeignLanguage;
 import kodlamaio.hrms.entities.concretes.JobExperience;
 import kodlamaio.hrms.entities.concretes.SchoolInfo;
+import kodlamaio.hrms.entities.dtos.CurriculumVitaeDetailDto;
 
 @RestController
 @RequestMapping("/api/curriculumvitaes")
@@ -104,6 +107,11 @@ public class CurriculumVitaesController {
 		
 		
 		
+	}
+	
+	@GetMapping("/getCV")
+	public DataResult<CurriculumVitaeDetailDto> getCvByJobSeekerId(@RequestParam int id) {
+		return this.curriculumVitaeService.getByJobSeekerId(id);
 	}
 	
 	

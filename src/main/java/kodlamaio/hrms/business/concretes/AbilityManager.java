@@ -12,6 +12,7 @@ import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.AbilityDao;
 import kodlamaio.hrms.entities.concretes.Ability;
+import kodlamaio.hrms.entities.dtos.AbilityDetailDto;
 
 @Service
 public class AbilityManager implements AbilityService{
@@ -34,6 +35,12 @@ public class AbilityManager implements AbilityService{
 	public DataResult<List<Ability>> getAll() {
 		
 		return new SuccessDataResult<List<Ability>>(this.abilityDao.findAll(),"Yetenekler listelendi");
+	}
+
+	@Override
+	public DataResult<List<AbilityDetailDto>> getAllByCvId(int id) {
+		// TODO Auto-generated method stub
+		return new SuccessDataResult<List<AbilityDetailDto>>(this.abilityDao.findByCurriculumVitae_Id(id));
 	}
 
 }

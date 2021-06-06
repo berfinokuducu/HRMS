@@ -12,6 +12,7 @@ import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.JobExperienceDao;
 import kodlamaio.hrms.entities.concretes.JobExperience;
+import kodlamaio.hrms.entities.dtos.JobExperienceDetailDto;
 
 @Service
 public class JobExperienceManager implements JobExperienceService{
@@ -38,6 +39,11 @@ public class JobExperienceManager implements JobExperienceService{
 	@Override
 	public DataResult<List<JobExperience>> getAllByCurriculumVitae_idOrderByDateOfEndDesc(int id) {
 		return new SuccessDataResult<List<JobExperience>>(this.jobExperienceDao.getAllByCurriculumVitae_idOrderByDateOfEndDesc(id),"Listelendi");
+	}
+
+	@Override
+	public DataResult<List<JobExperienceDetailDto>> getAllByCvId(int id) {
+		return new SuccessDataResult<List<JobExperienceDetailDto>>(this.jobExperienceDao.getJobExperienceDetailByCurriculumVitae_IdOrderByDateOfEndDesc(id));
 	}
 
 }

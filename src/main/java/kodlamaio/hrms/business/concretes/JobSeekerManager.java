@@ -40,4 +40,10 @@ public class JobSeekerManager implements JobSeekerService {
 		return new SuccessDataResult<JobSeeker>(this.jobSeekerDao.getByNationalId(nationalId));
 	}
 
+	@Override
+	public DataResult<JobSeeker> getById(int id) {
+		// TODO Auto-generated method stub
+		return new SuccessDataResult<JobSeeker>(this.jobSeekerDao.getById(id));
+	}
+
 }

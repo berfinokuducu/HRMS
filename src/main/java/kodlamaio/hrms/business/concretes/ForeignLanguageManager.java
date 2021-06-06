@@ -12,6 +12,7 @@ import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.ForeignLanguageDao;
 import kodlamaio.hrms.entities.concretes.ForeignLanguage;
+import kodlamaio.hrms.entities.dtos.ForeignLanguageDetailDto;
 
 @Service
 public class ForeignLanguageManager implements ForeignLanguageService{
@@ -34,6 +35,11 @@ public class ForeignLanguageManager implements ForeignLanguageService{
 	@Override
 	public DataResult<List<ForeignLanguage>> getAll() {
 		return new SuccessDataResult<List<ForeignLanguage>>(this.foreignLanguageDao.findAll(),"Yabancı diller getirildi");
+	}
+
+	@Override
+	public DataResult<List<ForeignLanguageDetailDto>> getAllByCvId(int id) {
+		return new SuccessDataResult<List<ForeignLanguageDetailDto>>(this.foreignLanguageDao.getByCurriculumVitae_Id(id));
 	}
 
 }

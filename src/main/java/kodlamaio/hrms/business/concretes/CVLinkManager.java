@@ -12,6 +12,7 @@ import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.CVLinkDao;
 import kodlamaio.hrms.entities.concretes.CVLink;
+import kodlamaio.hrms.entities.dtos.CVLinkDetailDto;
 
 @Service
 public class CVLinkManager implements CVLinkService{
@@ -33,6 +34,11 @@ public class CVLinkManager implements CVLinkService{
 	public DataResult<List<CVLink>> getAll() {
 		// TODO Auto-generated method stub
 		return new SuccessDataResult<List<CVLink>>(this.cvLinkDao.findAll(),"Linkler listelendi");
+	}
+
+	@Override
+	public DataResult<List<CVLinkDetailDto>> getAllByCvId(int id) {
+		return new SuccessDataResult<List<CVLinkDetailDto>>(this.cvLinkDao.getByCurriculumVitae_Id(id));
 	}
 
 }

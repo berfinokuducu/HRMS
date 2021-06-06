@@ -12,6 +12,7 @@ import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.SchoolInfoDao;
 import kodlamaio.hrms.entities.concretes.SchoolInfo;
+import kodlamaio.hrms.entities.dtos.SchoolInfoDetailDto;
 @Service
 public class SchoolInfoManager implements SchoolInfoService{
 	private SchoolInfoDao schoolInfoDao;
@@ -39,6 +40,11 @@ public class SchoolInfoManager implements SchoolInfoService{
 	@Override
 	public DataResult<List<SchoolInfo>> getByCurriculumVitae_IdOrderByGraduationDateDesc(int id) {
 		return new SuccessDataResult<List<SchoolInfo>>(this.schoolInfoDao.getAllByCurriculumVitae_idOrderByGraduationDateDesc(id),"Listelendi");
+	}
+
+	@Override
+	public DataResult<List<SchoolInfoDetailDto>> getAllByCvId(int id) {
+		return new SuccessDataResult<List<SchoolInfoDetailDto>>(this.schoolInfoDao.getSchoolInfoDetailByCurriculumVitae_IdGraduationDateDesc(id));
 	}
 
 }
