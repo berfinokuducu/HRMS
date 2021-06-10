@@ -14,6 +14,7 @@ import kodlamaio.hrms.entities.concretes.JobExperience;
 
 @RestController
 @RequestMapping("/api/jobExperiences")
+
 public class JobExperiencesController {
 	private JobExperienceService jobExperienceService;
 
